@@ -1,0 +1,40 @@
+$directions: 'a', 't', 'b', 'l', 'r', 'x', 'y';
+$sizes: 0, 0.25rem, 0.5rem, 1rem, 2rem, 4rem;
+$spacers: (
+        (
+                'name': m,
+                'value': margin
+        ),
+        (
+                'name': p,
+                'value': padding
+        )
+);
+
+
+@each $direction in $directions {
+  @each $size in $sizes {
+    $i: index($sizes, $size);
+    @each $spacer in $spacers {
+      .#{map-get($spacer, 'name')}#{$direction}-#{$i - 1} {
+        @if $direction == 'a' {
+          #{map-get($spacer, 'value')}: $size !important;
+        } @else if $direction == 't' {
+          #{map-get($spacer, 'value')}-top: $size !important;
+        } @else if $direction == 'b' {
+          #{map-get($spacer, 'value')}-bottom: $size !important;
+        } @else if $direction == 'l' {
+          #{map-get($spacer, 'value')}-left: $size !important;
+        } @else if $direction == 'r' {
+          #{map-get($spacer, 'value')}-right: $size !important;
+        } @else if $direction == 'x' {
+          #{map-get($spacer, 'value')}: auto $size !important;
+        } @else if $direction == 'y' {
+          #{map-get($spacer, 'value')}: $size auto !important;
+        } @else {
+          @error "Unknown direction #{$direction}.";
+        }
+      }
+    }
+  }
+}

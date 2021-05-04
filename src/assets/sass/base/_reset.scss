@@ -1,0 +1,32 @@
+@import "../abstracts/variables";
+
+html {
+  font-size: 16px;
+  font-family: 'Rubik', sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem;
+  color: #424242;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+.container {
+  max-width: 767px;
+  margin: auto;
+  padding: 0 1rem;
+}
+span{
+  display: inline-block;
+}
