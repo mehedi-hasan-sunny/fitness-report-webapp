@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<h3 class="font-weight-normal mb-4">Your gender</h3>
+		<h3 class="font-weight-normal mb-4">Your Exercise</h3>
 		<div class="d-inline-flex">
-			<CustomRadio value="male" class="mr-3" label="Male" :image-src="require('@/assets/images/male.png')" v-model="gender"/>
-			<CustomRadio value="female" label="Female" :image-src="require('@/assets/images/female.png')" v-model="gender"/>
+			<CustomRadio value="regular" class="mr-3" label="Regular" :image-src="require('@/assets/images/exercise-1.png')" v-model="gender"/>
+			<CustomRadio value="never" label="Never" :image-src="require('@/assets/images/exercise-2.png')" v-model="gender"/>
 		</div>
 	</div>
 </template>

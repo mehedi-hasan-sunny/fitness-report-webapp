@@ -1,14 +1,7 @@
-$displays: block, inline-block, flex, inline-flex, table, table-cell none;
+$displays: block, inline-block, flex, inline-flex, table, table-cell, none;
 
 @each $display in $displays {
   .d-#{$display} {
     display: $display !important;
   }
-}
-
-.align-center{
-  align-items: center;
-}
-.justify-center{
-  justify-content: center;
 }

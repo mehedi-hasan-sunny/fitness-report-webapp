@@ -7,15 +7,20 @@
 				<h4 class="font-weight-normal mb-3">Getting your FEDO score</h4>
 				<div class="steps mb-2">
 					<a href="javascript:void(0)" class="step"
-					   :class="[step.active ? 'active' : '', step.complete ? 'complete' : '']" v-for="(step , index) in steps"
+					   :class="[currentStep-1 === index  ? 'active' : '', step.complete ? 'complete' : '']" v-for="(step , index) in steps"
 					   :key="index" @click="gotoStep(index)"></a>
 				</div>
-				<small> Step {{currentStep}} of 12</small>
+				<small> Step {{ currentStep }} of 10</small>
 			</div>
 			<div class="card-body">
 				<Component :is="'Step' + currentStep"></Component>
-				<div class="step-container my-3">
-					<button class="btn btn-brand btn-block" @click="gotoStep(currentStep)">Next</button>
+				<div class="step-container mt-3">
+					<button class="btn btn-brand btn-block" v-if="currentStep < 10" @click="gotoStep(currentStep, true)">
+						Next
+					</button>
+					<button type="submit" v-else class="btn btn-brand btn-block" @click="">
+						Submit
+					</button>
 				</div>
 			</div>
 		</div>
@@ -25,12 +30,28 @@
 <script>
 import Step1 from "../components/assessments/Step1";
 import Step2 from "../components/assessments/Step2";
+import Step3 from "../components/assessments/Step3";
+import Step4 from "../components/assessments/Step4";
+import Step5 from "../components/assessments/Step5";
+import Step6 from "../components/assessments/Step6";
+import Step7 from "../components/assessments/Step7";
+import Step8 from "../components/assessments/Step8";
+import Step9 from "../components/assessments/Step9";
+import Step10 from "../components/assessments/Step10";
 
 export default {
 	name: "Assessment",
 	components: {
 		Step1,
-		Step2
+		Step2,
+		Step3,
+		Step4,
+		Step5,
+		Step6,
+		Step7,
+		Step8,
+		Step9,
+		Step10,
 	},
 	data() {
 		return {
@@ -40,45 +61,91 @@ export default {
 						primary: 'Let us get acquainted',
 						secondary: 'What shall we call you?',
 					},
-					active: false,
-					complete: true,
-					step: 1
+					complete: true
 				},
 				{
 					text: {
 						primary: 'Demography',
 						secondary: 'I am a...',
 					},
-					active: false,
-					complete: false,
-					step: 2
-				}
+					complete: true
+				},
+				{
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: true
+				},
+				{
+					text: {
+						primary: 'Demography',
+						secondary: 'How tall are you?',
+					},
+					complete: false
+				}, {
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: false
+				},
+				{
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: false
+				},
+				{
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: false
+				}, {
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: false
+				},
+				{
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: false
+				},
+				{
+					text: {
+						primary: 'Demography',
+						secondary: 'Tell me your age',
+					},
+					complete: false
+				},
 			],
 			title: {
 				primary: '',
 				secondary: '',
 			},
-			currentStep: 1
+			currentStep: 3
 		}
 	},
 	created() {
-		this.gotoStep(0)
+		this.gotoStep(2)
 	},
 	methods: {
-		gotoStep(index) {
-			console.log('hello')
+		gotoStep(index, completeStep = false) {
 			let step = this.steps[index];
-			let previousStep = null;
-			if (index > 0) {
-				previousStep = this.steps[index - 1];
-				previousStep = previousStep.complete
-			}
-			if (previousStep === null || previousStep === true) {
+			let previousStepComplete = index > 0 ? this.steps[index - 1].complete : true;
+			if (previousStepComplete) {
 				this.title = step.text;
-				this.steps[index].active = true;
-				this.currentStep = index + 1
+				this.currentStep = index + 1;
+				if(completeStep){
+					this.steps[index].complete = completeStep
+				}
 			}
-			
 		}
 	}
 }
@@ -108,16 +175,15 @@ export default {
 			background-color: #c2b1f3;
 			border-color: #c2b1f3;
 		}
-		
+		&.complete {
+			background-color: $brand-color;
+			border-color: $brand-color;
+		}
 		&.active {
 			background-color: $success-color;
 			border-color: $success-color;
 		}
 		
-		&.complete {
-			background-color: $brand-color;
-			border-color: $brand-color;
-		}
 	}
 }
 

@@ -1,0 +1,25 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    flex: 0 0 #{8.333333 * $i}#{'%'};
+    max-width: #{8.333333 * $i}#{'%'};
+    width: 100%;
+    padding-left: .75rem;
+    padding-right: .75rem;
+  }
+  @media (min-width: 767px) {
+    .col-sm-#{$i} {
+      flex: 0 0 #{8.333333 * $i}#{'%'} !important;
+      max-width: #{8.333333 * $i}#{'%'} !important;
+      width: 100%;
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
+}

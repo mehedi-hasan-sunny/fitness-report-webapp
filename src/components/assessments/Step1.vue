@@ -1,6 +1,6 @@
 <template>
 	<div class="step-container">
-		<h3 class="font-weight-normal mb-4">Upload your picture</h3>
+		<h3 class="font-weight-normal mb-3">Upload your picture</h3>
 		<div class="mb-3">
 			<img id="blah" :src="imageSrc" alt="your image" class="image-preview"/>
 		</div>
@@ -65,7 +65,7 @@ export default {
 </script>
 <style lang="scss">
 .custom-image-upload {
-	padding: 0.75rem 1.25rem;
+	padding: 0.5rem 1.25rem;
 	border: 1px solid rgb(190, 190, 190);
 	border-radius: 0.375rem;
 	display: inline-block;
@@ -80,8 +80,8 @@ export default {
 }
 
 .image-preview {
-	width: 10rem;
-	height: 10rem;
+	width: 7rem;
+	height: 7rem;
 	border-radius: 50%;
 	border: 1px solid #cbbff1;
 	object-fit: contain;
