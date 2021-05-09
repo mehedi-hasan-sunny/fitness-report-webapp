@@ -3,7 +3,7 @@
 <!--		<Navbar/>-->
 		<main>
 			<router-view/>
-			<div class="toaster" v-if="updateExists" ref="updateApp">
+			<div class="toaster" :v-cloak="updateExists" ref="updateApp">
 				<img src="@/assets/images/update-icon.svg" alt="">
 				<span>An update is available!</span>
 				<a href="javascript:void(0)" @click="refreshApp">Update</a>
@@ -21,10 +21,21 @@ export default {
 	},
 	mixins: [updateServiceWorker],
 	mounted() {
-		if (this.updateExists) {
+		if(this.updateExists){
 			setTimeout(()=>{
 				this.$refs.updateApp.style.right = '1rem';
 			}, 1000)
+		}
+	},
+	watch:{
+		updateExists: {
+			handler(value){
+				if(value){
+					setTimeout(()=>{
+						this.$refs.updateApp.style.right = '1rem';
+					}, 1000)
+				}
+			}
 		}
 	}
 	

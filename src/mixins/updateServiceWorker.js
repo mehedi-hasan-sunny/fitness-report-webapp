@@ -29,6 +29,7 @@ export default {
 		
 		refreshApp() {
 			this.updateExists = false
+			window.location.reload()
 			if (!this.registration || !this.registration.waiting) return
 			this.registration.waiting.postMessage({type: 'SKIP_WAITING'})
 		},
