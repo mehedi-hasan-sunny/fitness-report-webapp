@@ -2,12 +2,12 @@
 	<div>
 		<label :for="uniqueId" class="custom-radio">
 			<input type="radio" class="d-none mb-0" :id="uniqueId" :value="value" v-bind="$attrs"
-			       :checked="isChecked" @change="$emit('change',$event.target.value)"/>
+			       :checked="isChecked" @change="$emit('change',$event.target.value)" @click="$emit('change',$event.target.value)"/>
 			<slot name="label">
 				<div class="card outlined custom-checkbox-image-card" :class="[isChecked ? 'checked' : '', cardClass]">
 					<img :src="imageSrc" alt="Checkbox image" class="custom-checkbox-image" :class="imageClass">
 				</div>
-				<span class="d-block test-center mt-3" :class="isChecked ? 'checked' : ''">{{ label }}</span>
+				<span class="d-block text-center mt-3" :class="isChecked ? 'checked' : ''">{{ label }}</span>
 			</slot>
 		</label>
 	
@@ -62,17 +62,18 @@ export default {
 		.custom-checkbox-image {
 			height: 12rem;
 			max-width: 7rem;
+			object-fit: contain;
 		}
 		&.checked{
 			border-color: #472f9169;
 			box-shadow: 0 1px 6px 0 #472f91bd;
 		}
 		
-		@media (max-width: 676px) {
-			.custom-checkbox-image {
-				max-height: 10rem;
-			}
-		}
+		//@media (max-width: 676px) {
+		//	.custom-checkbox-image {
+		//		max-height: 7rem;
+		//	}
+		//}
 	}
 	
 }

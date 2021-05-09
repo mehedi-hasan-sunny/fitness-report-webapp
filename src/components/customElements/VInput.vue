@@ -1,6 +1,5 @@
 <template>
-	<input v-model="modelValue" :type="!$attrs.type ? 'text' : $attrs.type" class="form-control" v-bind="$attrs"
-	       v-on="$listeners"/>
+	<input v-model="modelValue" :type="!$attrs.type ? 'text' : $attrs.type" class="form-control" v-bind="$attrs"/>
 </template>
 
 <script>

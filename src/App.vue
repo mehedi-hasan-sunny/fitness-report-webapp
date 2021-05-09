@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<Navbar/>
+<!--		<Navbar/>-->
 		<main>
 			<router-view/>
 			<div class="toaster" v-if="updateExists" ref="updateApp">
@@ -32,7 +32,9 @@ export default {
 </script>
 <style lang="scss">
 @import "./src/assets/sass/app.scss";
-
+body{
+	background-image: url("assets/images/bg-pattern.png");
+}
 #nav {
 	padding: 30px;
 	
@@ -76,6 +78,14 @@ export default {
 		max-width: 2rem;
 	}
 	
+}
+main{
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+}
+.assessment-container{
+	background-image: url("./assets/images/fedo-logo-mini-v2.png");
 }
 
 </style>

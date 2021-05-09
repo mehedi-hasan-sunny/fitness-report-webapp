@@ -31,7 +31,7 @@ p {
   width: 100%;
   max-width: 767px;
   margin: auto;
-  padding: 0 1rem;
+  padding: 1rem;
 
   &.fluid {
     max-width: 100%;
@@ -51,6 +51,8 @@ span {
   width: 2.5rem;
   height: 2.5rem;
 }
-.rounded {
+.circular {
   border-radius: 50%;
+}.rounded {
+   border-radius: 10px;
 }

@@ -1,35 +1,33 @@
 <template>
 	<div>
-		<h3 class="font-weight-normal mb-4">Your gender</h3>
 		<div class="d-inline-flex">
-			<CustomRadio value="male" class="mr-3" label="Male" :image-src="require('@/assets/images/male.png')" v-model="gender"/>
-			<CustomRadio value="female" label="Female" :image-src="require('@/assets/images/female.png')" v-model="gender"/>
+			<CustomRadio value="male" class="mr-3" card-class="px-4" label="Male" :image-src="require('@/assets/images/male.png')"
+			             v-model="gender"/>
+			<CustomRadio value="female" card-class="px-4" label="Female" :image-src="require('@/assets/images/female.png')" v-model="gender"/>
 		</div>
 	</div>
 </template>
 
 <script>
 import CustomRadio from "../customElements/CustomRadio";
+import setStepData from "../../mixins/setStepData";
 
 export default {
-	name: "Step8",
+	name: "Step2",
 	components: {
 		CustomRadio
 	},
-	data() {
-		return {
-			gender: '',
-			genders: [
-				{
-					value: 'male',
-					image: require("@/assets/images/male.svg"),
-				},
-				{
-					value: 'female',
-					image: require("@/assets/images/female.svg"),
-				}
-			]
-		}
-	}
+	computed: {
+		gender: {
+			get() {
+				return this.stepData.gender;
+			},
+			set(value) {
+				this.setStep({gender: value});
+				this.$emit('gotoNextStep');
+			}
+		},
+	},
+	mixins:[setStepData],
 }
 </script>

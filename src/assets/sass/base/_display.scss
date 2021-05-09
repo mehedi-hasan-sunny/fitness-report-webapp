@@ -5,3 +5,27 @@ $displays: block, inline-block, flex, inline-flex, table, table-cell, none;
     display: $display !important;
   }
 }
+
+.flex-column{
+  flex-direction: column;
+}
+
+$positions: relative, absolute, fixed, static;
+
+@each $position in $positions {
+  .position-#{$position} {
+    position: $position !important;
+  }
+}
+
+$positionDirections: top, right, bottom, left;
+$positionDirectionSizes: 0, 0.25rem, 0.5rem, 1rem, 2rem, 4rem, auto;
+@each $positionDirection in $positionDirections {
+  @each $size in $positionDirectionSizes {
+    $i: index($positionDirectionSizes, $size);
+    //@error "Unknown direction .#{$positionDirection}-#{$i - 1}";
+    #{'.'+$positionDirection}-#{$i - 1} {
+      #{$positionDirection}: $size !important;
+    }
+  }
+}

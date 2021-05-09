@@ -1,5 +1,5 @@
 $directions: 'a', 't', 'b', 'l', 'r', 'x', 'y';
-$sizes: 0, 0.25rem, 0.5rem, 1rem, 2rem, 4rem, 'auto';
+$sizes: 0, 0.25rem, 0.5rem, 1rem, 2rem, 4rem, auto;
 $spacers: (('name': m, 'value': margin), ('name': p, 'value': padding));
 
 @each $direction in $directions {
@@ -25,9 +25,11 @@ $spacers: (('name': m, 'value': margin), ('name': p, 'value': padding));
         } @else if $direction == 'r' {
           #{map-get($spacer, 'value')}-right: $size !important;
         } @else if $direction == 'x' {
-          #{map-get($spacer, 'value')}: auto $size !important;
+          #{map-get($spacer, 'value')}-left: $size !important;
+          #{map-get($spacer, 'value')}-right: $size !important;
         } @else if $direction == 'y' {
-          #{map-get($spacer, 'value')}: $size auto !important;
+          #{map-get($spacer, 'value')}-top: $size !important;
+          #{map-get($spacer, 'value')}-bottom: $size !important;
         } @else {
           @error "Unknown direction #{$direction}.";
         }
@@ -52,4 +54,10 @@ $spacers: (('name': m, 'value': margin), ('name': p, 'value': padding));
 }
 .justify-around{
   justify-content: space-around;
+}
+.justify-start{
+  justify-content: start;
+}
+.justify-end{
+  justify-content: start;
 }

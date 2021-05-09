@@ -1,76 +1,44 @@
 <template>
-	<div class="container fluid">
-		<div class="row">
-			<div class="col-12 col-sm-4">
-				<div class="card bg-light-brand fedo-report-card">
-					<div class="card-title">
-						<div class="d-flex">
-							<img src="@/assets/images/avatar.svg" class="img-fluid avatar rounded" alt="Profile image">
-							<div class="ml-3">
-								About You
-							</div>
-						</div>
-					</div>
-					<div class="card-body">
-					</div>
+	<div class="container text-center pt-3 fedo-report-container">
+		<div class="assessment-container report">
+			<div class="card">
+				<div class="card-title">
+					<!--					<a href="javascript:void(0)" class="step-back">-->
+					<!--						<span class="material-icons-outlined">arrow_back</span></a>-->
+					
+					<h2 class="font-weight-normal mt-4">Your Fedo Score</h2>
 				</div>
-			</div>
-			<div class="col-12 col-sm-4">
-				<div class="card bg-light-brand fedo-report-card">
-					<div class="card-title">
-						Your Fedo Score
+				<div class="card-body position-relative">
+					<div class="fedo-score circular success">
+						640
 					</div>
-					<div class="card-body">
-						<div class="row justify-center align-center">
-							<div class="col-4 text-center">
-								<div class="fedo-score rounded success">
-									640
-								</div>
-							</div>
-							<div class="col-8">
-								<p class="text-center mb-0">
-									Your are better than
-									<br>
-									<strong> 30%</strong>
-									<br>
-									People like you
-								</p>
-							</div>
-						</div>
-						<div class="d-flex justify-around mt-4">
-							<small>Good</small>
-							<small>Moderate</small>
-							<small>At Risk</small>
-						</div>
+					<div class="d-flex justify-between mx-5 mt-4">
+						<small class="dot success">Good</small>
+						<small class="dot warning">Moderate</small>
+						<small class="dot danger">At Risk</small>
 					</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-4">
-				<div class="card bg-light-brand fedo-report-card">
-					<div class="card-title">
-						Factor driving your score
-					</div>
-					<div class="card-body">
-						<div class="row justify-center align-center">
-							<div class="col-4 text-center">
-								<div class="fedo-score rounded success">
-									640
-								</div>
-							</div>
-							<div class="col-8">
-								<p class="text-center mb-0">
-									Your are better than
-									<br>
-									<strong> 30%</strong>
-									<br>
-									People like you
-								</p>
-							</div>
-						</div>
-						<div class="d-flex justify-around mt-4">
-							<small>Good</small>
-							<small>Moderate</small>
-							<small>At Risk</small>
+					<small class="mt-4 d-block"> Your are better than <strong> 30%</strong> people like you</small>
+					
+					<div class="card mt-4 mx-auto" style="max-width: 20rem; box-shadow: 0 1px 6px 0 #20212447;">
+						<div class="card-body">
+							<h3 class="font-weight-normal">Joe James</h3>
+							
+							<small class="d-inline-flex align-center">
+								<span class="d-inline-flex align-center">
+									<span class="material-icons" style="font-size: small">male</span>
+									<span>Male</span>
+								</span>
+								<span class="mx-2">|</span>
+								<span>25 years</span>
+								<span class="mx-2">|</span>
+								<span>70kgs</span>
+							</small>
+							<hr class="my-3">
+							<span class="d-inline-flex align-center">
+								<span class="d-inline-flex align-center">
+									<h4 class="font-weight-normal mb-0">BMI: <strong>29</strong></h4>
+								</span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -86,21 +54,26 @@ export default {
 </script>
 <style lang="scss">
 @import "../assets/sass/abstracts/variables";
+@import "../assets/sass/components/custom_mobile_card";
 
-.fedo-report-card {
-	min-height: 13.5rem;
+.fedo-report-container {
+	
+	.assessment-container > .card > .card-body{
+		min-height: 550px;
+	}
 }
+
 .bg-light-brand {
 	background-color: #f7f4ff;
 }
 
 .fedo-score {
-	width: 5rem;
-	height: 5rem;
+	width: 10rem;
+	height: 10rem;
 	background-color: #fff;
-	border: 10px solid #b4b4b4;
-	font-size: 1.2rem;
-	line-height: 3.8rem;
+	border: 12px solid #b4b4b4;
+	font-size: 3rem;
+	line-height: 9rem;
 	text-align: center;
 	margin: auto;
 	
@@ -116,4 +89,37 @@ export default {
 		border-color: $danger-color;
 	}
 }
+
+.dot {
+	&:before {
+		content: " ";
+		display: inline-block;
+		margin-right: 0.5rem;
+		height: 8px;
+		width: 8px;
+		background-color: #fff;
+		border-radius: 50%;
+		vertical-align: middle;
+	}
+	
+	&.success {
+		&:before {
+			background-color: $success-color;
+		}
+	}
+	
+	&.warning {
+		&:before {
+			background-color: $warning-color;
+		}
+	}
+	
+	&.danger {
+		&:before {
+			background-color: $danger-color;
+		}
+	}
+}
+
+
 </style>

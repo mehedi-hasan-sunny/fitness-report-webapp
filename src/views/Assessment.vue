@@ -1,29 +1,37 @@
 <template>
 	<div class="container text-center pt-3">
-		<h1>{{ title.primary }}</h1>
-		<h2>{{ title.secondary }}</h2>
-		<div class="card outlined my-4">
-			<div class="card-title">
-				<h4 class="font-weight-normal mb-3">Getting your FEDO score</h4>
-				<div class="steps mb-2">
-					<a href="javascript:void(0)" class="step"
-					   :class="[currentStep-1 === index  ? 'active' : '', step.complete ? 'complete' : '']" v-for="(step , index) in steps"
-					   :key="index" @click="gotoStep(index)"></a>
+		<div class="assessment-container">
+			<div class="card">
+				<div class="card-title">
+					<a href="javascript:void(0)" class="step-back" v-if="currentStep > 0" @click.prevent="gotoBackStep">
+						<span class="material-icons-outlined">arrow_back</span></a>
+					<small> Step {{ (currentStep + 1) + ' of ' + steps.length }}</small>
+					<h2 class="font-weight-normal mt-4">{{ steps[currentStep].title }}</h2>
 				</div>
-				<small> Step {{ currentStep }} of 10</small>
-			</div>
-			<div class="card-body">
-				<Component :is="'Step' + currentStep"></Component>
-				<div class="step-container mt-3">
-					<button class="btn btn-brand btn-block" v-if="currentStep < 10" @click="gotoStep(currentStep, true)">
-						Next
-					</button>
-					<button type="submit" v-else class="btn btn-brand btn-block" @click="">
-						Submit
-					</button>
+				<div class="card-body">
+					<div class="d-flex step-wrapper" :style="!steps[currentStep].showNext ? 'margin-bottom: 4.125rem;' : ''">
+						<transition name="slide-fade" mode="out-in">
+							<Component :is="'Step' + (currentStep+1)" @gotoNextStep="gotoNextStep"></Component>
+						</transition>
+					</div>
+					<div class="step-container mt-3" v-if="steps[currentStep].showNext">
+						<button class="btn btn-brand btn-block" v-if="currentStep < steps.length-1"
+						        @click="gotoNextStep(currentStep, true)">
+							Next
+						</button>
+						<button type="submit" v-else class="btn btn-brand btn-block" @click="isModalOpen=true; gotoReport()">
+							Submit
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
+		<Modal v-model="isModalOpen">
+			<div class="my-5 mx-5">
+				<h3>Please wait</h3>
+				<ProgressBar :completion="100"></ProgressBar>
+			</div>
+		</Modal>
 	</div>
 </template>
 
@@ -38,6 +46,8 @@ import Step7 from "../components/assessments/Step7";
 import Step8 from "../components/assessments/Step8";
 import Step9 from "../components/assessments/Step9";
 import Step10 from "../components/assessments/Step10";
+import Modal from "../components/Modal";
+import ProgressBar from "../components/ProgressBar";
 
 export default {
 	name: "Assessment",
@@ -52,100 +62,77 @@ export default {
 		Step8,
 		Step9,
 		Step10,
+		Modal,
+		ProgressBar
 	},
 	data() {
 		return {
 			steps: [
 				{
-					text: {
-						primary: 'Let us get acquainted',
-						secondary: 'What shall we call you?',
-					},
+					title: 'Let us get acquainted',
+					showNext: true,
 					complete: true
 				},
 				{
-					text: {
-						primary: 'Demography',
-						secondary: 'I am a...',
-					},
-					complete: true
-				},
-				{
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
-					complete: true
-				},
-				{
-					text: {
-						primary: 'Demography',
-						secondary: 'How tall are you?',
-					},
-					complete: false
-				}, {
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
+					title: 'I am a...',
+					showNext: false,
 					complete: false
 				},
 				{
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
+					title: 'My age is...',
+					showNext: true,
 					complete: false
 				},
 				{
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
-					complete: false
-				}, {
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
+					title: 'My height is...',
+					showNext: true,
 					complete: false
 				},
 				{
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
+					title: 'My weight is...',
+					showNext: true,
 					complete: false
 				},
 				{
-					text: {
-						primary: 'Demography',
-						secondary: 'Tell me your age',
-					},
+					title: 'You are a...',
+					showNext: false,
+					complete: false
+				},
+				{
+					title: 'You are a...',
+					showNext: false,
+					complete: false
+				},
+				{
+					title: 'You exercise...',
+					showNext: false,
+					complete: false
+				},
+				{
+					title: 'Medical history',
+					showNext: true,
 					complete: false
 				},
 			],
-			title: {
-				primary: '',
-				secondary: '',
-			},
-			currentStep: 3
+			currentStep: 0,
+			isModalOpen: false
 		}
 	},
-	created() {
-		this.gotoStep(2)
-	},
 	methods: {
-		gotoStep(index, completeStep = false) {
-			let step = this.steps[index];
-			let previousStepComplete = index > 0 ? this.steps[index - 1].complete : true;
-			if (previousStepComplete) {
-				this.title = step.text;
-				this.currentStep = index + 1;
-				if(completeStep){
-					this.steps[index].complete = completeStep
-				}
+		gotoBackStep() {
+			if (this.currentStep > 0) {
+				this.currentStep--
 			}
+		},
+		gotoNextStep() {
+			if (this.currentStep < this.steps.length - 1) {
+				this.currentStep++
+			}
+		},
+		gotoReport() {
+			setTimeout(() => {
+				this.$router.push({name: 'Report'})
+			}, 1500)
 		}
 	}
 }
@@ -175,10 +162,12 @@ export default {
 			background-color: #c2b1f3;
 			border-color: #c2b1f3;
 		}
+		
 		&.complete {
 			background-color: $brand-color;
 			border-color: $brand-color;
 		}
+		
 		&.active {
 			background-color: $success-color;
 			border-color: $success-color;
@@ -189,6 +178,86 @@ export default {
 
 .step-container {
 	max-width: 450px;
-	margin: auto;
+	min-width: 250px;
+	margin: 0 auto;
+}
+
+.step-wrapper {
+	flex-direction: column;
+	justify-content: center;
+	//max-height: 500px;
+	min-height: 450px;
+}
+
+.assessment-container {
+	max-width: 550px;
+	margin: 0 auto;
+	background-image: url("../assets/images/fedo-logo-mini-v2.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	padding-top: 4rem;
+	
+	> .card {
+		max-width: 450px;
+		margin: auto;
+		background: transparent;
+		overflow: hidden;
+		border-top-left-radius: 0;
+		
+		.card-title {
+			height: 8rem;
+			background-color: #472f91;
+			border-top-right-radius: 25% 100%;
+			border-bottom-left-radius: 0;
+			
+			* {
+				color: white;
+			}
+		}
+		
+		.card-body {
+			background-color: #fff;
+			border: 1px solid #d2d2d2;
+			border-bottom-right-radius: 10px;
+			border-bottom-left-radius: 10px;
+		}
+		
+		@media (max-width: 440px) {
+			.card-title {
+				border-top-right-radius: 25% 65%;
+			}
+		}
+		
+	}
+	
+}
+
+.step-back {
+	display: inline-block;
+	position: absolute;
+	left: 1rem;
+	top: 3.25rem;
+}
+
+@media (max-width: 549px) {
+	.assessment-container {
+		background-image: none;
+		padding-top: 0rem;
+	}
+}
+
+.slide-fade-enter-active {
+	transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+	transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter, .slide-fade-leave-to
+	/* .slide-fade-leave-active below version 2.1.8 */
+{
+	transform: translateX(10px);
+	opacity: 0;
 }
 </style>

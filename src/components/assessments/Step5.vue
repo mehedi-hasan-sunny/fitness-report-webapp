@@ -1,22 +1,29 @@
 <template>
 	<div class="step-container">
-		<h3 class="font-weight-normal mb-4">Your weight in kgs</h3>
-		<CustomSlider class="mb-4" min="30" max="240" step="0.5" value-text="kgs" v-model="range"/>
+		<CustomSlider class="mb-4" min="30" max="240" step="0.5" value-text="kgs" v-model="weight"/>
 	</div>
 </template>
 
 <script>
 import CustomSlider from "../customElements/CustomSlider";
+import setStepData from "../../mixins/setStepData";
 
 export default {
 	name: "Step5",
 	components: {
 		CustomSlider
 	},
-	data() {
-		return {
-			range: 65
-		}
-	}
+	computed: {
+		weight: {
+			get() {
+				return this.stepData.weight;
+			},
+			set(value) {
+				this.setStep({weight: value})
+			}
+		},
+	},
+	mixins:[setStepData]
+	
 }
 </script>

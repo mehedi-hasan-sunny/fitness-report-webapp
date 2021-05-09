@@ -1,0 +1,49 @@
+.assessment-container {
+  max-width: 550px;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-top: 4rem;
+
+  > .card {
+    max-width: 450px;
+    margin: auto;
+    background: transparent;
+    overflow: hidden;
+    border-top-left-radius: 0;
+
+    >.card-title {
+      height: 8rem;
+      background-color: #472f91;
+      border-top-right-radius: 25% 100%;
+      border-bottom-left-radius: 0;
+
+      * {
+        color: white;
+      }
+    }
+
+    >.card-body {
+      background-color: #fff;
+      border: 1px solid #d2d2d2;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      min-height: 50vh;
+    }
+
+    @media (max-width: 440px) {
+      .card-title {
+        border-top-right-radius: 25% 65%;
+      }
+    }
+
+  }
+
+}
+
+@media (max-width: 549px) {
+  .assessment-container {
+    background-image: none;
+    padding-top: 0;
+  }
+}
