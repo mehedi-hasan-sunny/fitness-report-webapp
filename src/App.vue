@@ -1,9 +1,9 @@
 <template>
 	<div id="app">
-<!--		<Navbar/>-->
+		<!--		<Navbar/>-->
 		<main>
 			<router-view/>
-			<div class="toaster" ref="updateApp">
+			<div class="toaster" ref="updateApp" :style="updateExists ? 'right:1rem;' : null">
 				<img src="@/assets/images/update-icon.svg" alt="">
 				<span>An update is available!</span>
 				<a href="javascript:void(0)" @click="refreshApp">Update</a>
@@ -19,34 +19,17 @@ export default {
 	components: {
 		Navbar
 	},
-	mixins: [updateServiceWorker],
-	mounted() {
-		if(this.updateExists){
-			setTimeout(()=>{
-				this.$refs.updateApp.style.right = '1rem';
-			}, 1000)
-		}
-	},
-	watch:{
-		updateExists: {
-			handler(value){
-				console.log(value, 'update')
-				if(value){
-					setTimeout(()=>{
-						this.$refs.updateApp.style.right = '1rem';
-					}, 1000)
-				}
-			}
-		}
-	}
+	mixins: [updateServiceWorker]
 	
 }
 </script>
 <style lang="scss">
 @import "./src/assets/sass/app.scss";
-body{
+
+body {
 	background-image: url("assets/images/bg-pattern.png");
 }
+
 #nav {
 	padding: 30px;
 	
@@ -91,12 +74,14 @@ body{
 	}
 	
 }
-main{
+
+main {
 	display: flex;
 	align-items: center;
 	min-height: 100vh;
 }
-.assessment-container{
+
+.assessment-container {
 	background-image: url("./assets/images/fedo-logo-mini-v2.png");
 }
 
