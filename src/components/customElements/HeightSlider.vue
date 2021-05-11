@@ -8,7 +8,7 @@
 			<div class="col-4">
 				<div class="position-relative" style="display: table">
 					<div class="text-center height-slider">
-						<input v-bind="$attrs" :step="step" type="range" class="vertical-slider" :min="min" :max="max"
+						<input v-bind="$attrs" :step="step" type="range" class="vertical-slider" :min="min" :max="max" id="heightSlider"
 						       v-model="modelValue" list="tickmarks">
 						<datalist id="tickmarks">
 							<option :value="sliderValue" :key="index" v-for="(sliderValue, index) in sliderArray"
@@ -72,6 +72,23 @@ export default {
 			}
 			return arr
 		},
+	},
+	mounted() {
+		function stopScrolling( touchEvent ) {
+			if (touchEvent.target.id === "heightSlider")
+			{
+				document.body.style.overflowY = 'hidden';
+			}
+		}
+		function setScrolling( touchEvent ) {
+			if (touchEvent.target.id === "heightSlider")
+			{
+				document.body.removeAttribute('style');
+			}
+		}
+		document.addEventListener( 'touchmove' , stopScrolling , false );
+		document.addEventListener( 'touchstart' , stopScrolling , false );
+		document.addEventListener( 'touchend' , setScrolling , false );
 	}
 }
 </script>
@@ -97,6 +114,7 @@ export default {
 		position: relative;
 		z-index: 1;
 		background-color: transparent;
+		-webkit-tap-highlight-color: transparent;
 		//writing-mode: bt-lr; /* IE */
 		//-webkit-appearance: slider-vertical; /* WebKit */
 	}
@@ -156,7 +174,7 @@ export default {
 		outline: none;
 	}
 }
-@media(max-width: 480px){
+@media(max-width: 350px){
 	.height-slider{
 		left: -40%;
 	}
