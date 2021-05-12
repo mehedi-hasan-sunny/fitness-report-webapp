@@ -1,7 +1,7 @@
 <template>
 	<div class="text-center home d-flex">
 		<h1 class="brand-text slogan mb-3">Predict Your Health Risk</h1>
-		<h2 class="brand-text mb-4">Though AI</h2>
+		<h2 class="brand-text mb-4">Through AI</h2>
 		<div class="fedo-avatar-wrapper">
 			<div class="fedo-avatar-container">
 				<img class="" src="../assets/images/fedo-avatar.png">

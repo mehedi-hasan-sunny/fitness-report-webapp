@@ -1,19 +1,16 @@
 <template>
 	<div class="step-container">
-<!--		<CustomSlider height class="mb-4" min="91.44" max="243.84" step="2.54" v-model="height"/>-->
-		<HeightSlider min="91.44" max="243.84" step="2.54" v-model="height"/>
+		<HeightSlider min="120" max="220" step="1" v-model="height"/>
 	</div>
 </template>
 
 <script>
-import CustomSlider from "../customElements/CustomSlider";
 import setStepData from "../../mixins/setStepData";
 import HeightSlider from "../customElements/HeightSlider";
 
 export default {
 	name: "Step4",
 	components: {
-		CustomSlider,
 		HeightSlider
 	},
 	computed: {

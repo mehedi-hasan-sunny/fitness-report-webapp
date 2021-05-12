@@ -9,11 +9,11 @@
 				<div class="position-relative" style="display: table">
 					<div class="text-center height-slider">
 						<input v-bind="$attrs" :step="step" type="range" class="vertical-slider" :min="min" :max="max" id="heightSlider"
-						       v-model="modelValue" list="tickmarks">
-						<datalist id="tickmarks">
-							<option :value="sliderValue" :key="index" v-for="(sliderValue, index) in sliderArray"
-							        :class="parseFloat(modelValue) >= parseFloat(sliderValue) ? 'filled' : null"></option>
-						</datalist>
+						       v-model="modelValue">
+						<div id="tickmarks">
+							<div :value="sliderValue" :key="index" v-for="(sliderValue, index) in sliderArray"
+							        :class="parseFloat(modelValue) >= parseFloat(sliderValue) ? 'filled' : null"></div>
+						</div>
 					
 					</div>
 				</div>
@@ -62,7 +62,7 @@ export default {
 		height() {
 			let realFeet = ((this.value * 0.393700) / 12);
 			let feet = Math.floor(realFeet);
-			let inches = Math.round((realFeet - feet) * 12);
+			let inches = Math.floor(parseFloat(((realFeet - feet) * 12).toFixed(2)));
 			return inches === 12 ? feet + 1 + "'" : feet + "'" + inches + '" ';
 		},
 		sliderArray() {
@@ -95,17 +95,18 @@ export default {
 <style lang="scss">
 .height-slider {
 	//padding: 50% 0;
-	height: 0;
+	width: 390px;
 	position: relative;
 	left: -35%;
-	top: -8rem;
+	top: -10rem;
 	
 	.vertical-slider {
 		display: block;
 		transform-origin: top center;
-		transform: rotate(-90deg) translate(-50%);
+		transform: rotate(-90deg) translate(-49%);
 		//margin-top: -50%;
 		white-space: nowrap;
+		background: transparent;
 	}
 	
 	input[type="range"] {
@@ -115,58 +116,81 @@ export default {
 		z-index: 1;
 		background-color: transparent;
 		-webkit-tap-highlight-color: transparent;
-		//writing-mode: bt-lr; /* IE */
-		//-webkit-appearance: slider-vertical; /* WebKit */
+		margin: 0;
+	}
+	_::-webkit-full-page-media, _:future, :root input[type=range] {
+		width: 100%;
+		position: relative;
+		z-index: 1;
+		background: transparent;
+		background-color: transparent;
 	}
 	
 	input[type="range"]::-webkit-slider-runnable-track {
 		width: 100%;
 		height: 1.5rem;
 		cursor: pointer;
+		background: transparent;
 		background-color: transparent;
 		overflow: hidden;
+	}
+	input[type="range"]::-moz-range-track {
+		width: 100%;
+		height: 1.5rem;
+		cursor: pointer;
+		background-color: transparent;
+		overflow: hidden;
+	}
+	input[type="range"]::-ms-fill-lower,
+	input[type="range"]::-ms-fill-upper {
+		background: transparent;
 	}
 	
 	input[type="range"]::-webkit-slider-thumb {
 		height: 1.5rem;
-		width: 1px;
+		width: 0.4rem;
 		cursor: pointer;
 		-webkit-appearance: none;
-		border-right: 2px solid #472f91;
-		border-left: 2px solid #472f91;
+		background-color: #472f91;
+		border: 0;
 	}
 	
-	input[type="range"]::-webkit-slider-thumb:hover {
-		//background-color: #472F916F;
-		box-shadow: 0 1px 6px 0 #472F916F;
-	}
+	//input[type="range"]::-webkit-slider-thumb:hover {
+	//	//background-color: #472F916F;
+	//	//box-shadow: 0 1px 6px 0 #472F916F;
+	//}
 	
 	input[type="range"]::-moz-range-thumb {
 		height: 1.5rem;
-		width: 1px;
+		width: 0.4rem;
 		cursor: pointer;
-		border-right: 2px solid #472f91;
-		border-left: 1px solid #472f91;
+		background-color: #472f91;
+		border: 0;
+		
 	}
 	
 	#tickmarks {
 		display: flex;
 		justify-content: space-between;
-		transform-origin: top center;
-		transform: rotate(-90deg) translate(calc(-50% - -1.4rem));
+		transform: rotate(-90deg) translate(-41.5%, 132%);
 		white-space: nowrap;
+		background: transparent;
+		position: relative;
+		z-index: 0;
+		width: calc(100% - 0.4rem);
 	}
 	
-	#tickmarks option {
-		position: relative;
-		top: 0.5rem;
-		//border-left: 1px solid black;
+	#tickmarks div {
 		border-right: 1px solid #d3d3d3;
 		min-height: 0.75rem;
-		z-index: 0;
 	}
 	
-	#tickmarks option.filled {
+	//#tickmarks div:first-child {
+	//	opacity: 0;
+	//}
+	
+	
+	#tickmarks div.filled {
 		border-color: #7f67caf7;
 	}
 	

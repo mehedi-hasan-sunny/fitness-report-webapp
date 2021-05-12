@@ -61,7 +61,7 @@ export default {
 		padding: 1rem 1.5rem;
 		.custom-checkbox-image {
 			height: 12rem;
-			max-width: 7rem;
+			max-width: 6rem;
 			object-fit: contain;
 		}
 		&.checked{
@@ -69,11 +69,13 @@ export default {
 			box-shadow: 0 1px 6px 0 #472f91bd;
 		}
 		
-		//@media (max-width: 676px) {
-		//	.custom-checkbox-image {
-		//		max-height: 7rem;
-		//	}
-		//}
+		@media (max-width: 380px) {
+			.custom-checkbox-image {
+				max-width: 4.4rem;
+				height: auto;
+				max-height: 9.5rem;
+			}
+		}
 	}
 	
 }
